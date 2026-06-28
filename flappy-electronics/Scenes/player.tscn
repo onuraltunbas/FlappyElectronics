@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ckoh1bqq1sd2l"]
+
+[ext_resource type="Script" uid="uid://cphw5c10gyp40" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://deju4fu3muk53" path="res://Assets/Sprites/resistor.png" id="2_cvnsp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7t8f"]
+size = Vector2(84, 32)
+
+[node name="Player" type="CharacterBody2D" unique_id=1500827778]
+script = ExtResource("1_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1266201151]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_cvnsp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2060818117]
+shape = SubResource("RectangleShape2D_v7t8f")

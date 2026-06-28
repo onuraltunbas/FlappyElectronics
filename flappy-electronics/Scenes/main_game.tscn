@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bhrcfg6eslt3q"]
+
+[ext_resource type="Script" uid="uid://d1dhpjaiwieiu" path="res://Scripts/main_game.gd" id="1_l756w"]
+[ext_resource type="PackedScene" uid="uid://ckoh1bqq1sd2l" path="res://Scenes/player.tscn" id="2_pu3va"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7t8f"]
+size = Vector2(719.5, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cvp1"]
+size = Vector2(720, 10)
+
+[node name="MainGame" type="Node2D" unique_id=2024457642 groups=["merkez"]]
+script = ExtResource("1_l756w")
+uretim_sikligi = 2.0
+
+[node name="Player" parent="." unique_id=1500827778 instance=ExtResource("2_pu3va")]
+position = Vector2(96, 211)
+
+[node name="Sinirlar" type="StaticBody2D" parent="." unique_id=1168962144]
+
+[node name="Zemin" type="CollisionShape2D" parent="Sinirlar" unique_id=323969552]
+position = Vector2(360.25, 1280)
+shape = SubResource("RectangleShape2D_v7t8f")
+
+[node name="Tavan" type="CollisionShape2D" parent="Sinirlar" unique_id=1105111509]
+position = Vector2(360, 0)
+shape = SubResource("RectangleShape2D_5cvp1")
+
+[node name="Timer" type="Timer" parent="." unique_id=1901978236]
+wait_time = 1.5999999999999999
+autostart = true
+
+[node name="Arayuz" type="CanvasLayer" parent="." unique_id=33594934]
+
+[node name="PuanTabelasi" type="Label" parent="Arayuz" unique_id=784799844]
+offset_left = 340.0
+offset_top = 6.0
+offset_right = 381.0
+offset_bottom = 105.0
+theme_override_font_sizes/font_size = 72
+text = "0"
+horizontal_alignment = 1
+
+[node name="SonSkorTabelasi" type="Label" parent="Arayuz" unique_id=194540037]
+offset_left = 10.0
+offset_top = 53.0
+offset_right = 50.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="RekorTabelasi" type="Label" parent="Arayuz" unique_id=1034936495]
+offset_left = 10.0
+offset_top = 13.0
+offset_right = 50.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
