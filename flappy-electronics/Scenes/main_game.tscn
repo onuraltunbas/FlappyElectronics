@@ -11,8 +11,6 @@ size = Vector2(720, 10)
 
 [node name="MainGame" type="Node2D" unique_id=2024457642 groups=["merkez"]]
 script = ExtResource("1_l756w")
-uretim_sikligi = 1.4
-daralma_hizi = 5.0
 
 [node name="Player" parent="." unique_id=1500827778 instance=ExtResource("2_pu3va")]
 position = Vector2(152, 615)

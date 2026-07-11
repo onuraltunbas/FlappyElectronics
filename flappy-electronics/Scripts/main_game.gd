@@ -2,47 +2,53 @@ extends Node2D
 
 var engel_kalibi = preload("res://Scenes/engel.tscn")
 
-@export_group("Fabrika Bant Hızı")
-@export var uretim_sikligi: float = 1.6  
+# --- KONTROL PANELİMİZ (ARTIK HER ŞEY RASTGELE!) ---
 
-@export_group("Yükseklik Sınırları")
+@export_group("Fabrika Bant Hızı (Yatay Rastgelelik)")
+@export var en_hizli_kapi: float = 1.0  # Bir kapı en erken kaç saniyede gelebilir?
+@export var en_yavas_kapi: float = 2.5  # Bir kapı en geç kaç saniyede gelebilir?
+
+@export_group("Yükseklik Sınırları (Oynaklık)")
 @export var en_ust_delik: float = 350.0  
 @export var en_alt_delik: float = 930.0  
 
-@export_group("Zorluk ve Daralma Ayarları")
-@export var baslangic_genisligi: float = 800.0 
-@export var en_dar_sinir: float = 400.0        
-@export var daralma_hizi: float = 25.0          
+@export_group("Delik Boyutu (Dikey Rastgelelik)")
+@export var en_genis_delik: float = 800.0 # Bazen kocaman bir boşluk
+@export var en_dar_delik: float = 600.0   # Bazen iğne deliği kadar dar
 
-var anlik_mesafe: float
 var skor: int = 0  
 
-# --- YENİ HAFIZA SİSTEMİ ---
-var kayit_yolu = "user://oyun_hafizasi.save" # Telefonun güvenli kasası
+# --- HAFIZA SİSTEMİ ---
+var kayit_yolu = "user://oyun_hafizasi.save" 
 var rekor: int = 0
 var son_skor: int = 0
 
 func _ready():
-	anlik_mesafe = baslangic_genisligi
-	$Timer.wait_time = uretim_sikligi
-	hafizayi_yukle() # Oyun açılır açılmaz dosyayı oku!
+	hafizayi_yukle()
+	# Oyun başlarken ilk kapının geliş süresini rastgele kur
+	$Timer.wait_time = randf_range(en_hizli_kapi, en_yavas_kapi)
 
 func _on_timer_timeout():
 	var yeni_kapi = engel_kalibi.instantiate()
+	
+	# 1. Deliğin ekrandaki yüksekliği tamamen rastgele (Aşırı oynak)
 	var rastgele_y = randf_range(en_ust_delik, en_alt_delik)
 	yeni_kapi.position = Vector2(800, rastgele_y)
-	yeni_kapi.aralik_ayarla(anlik_mesafe)
 	
-	if anlik_mesafe > en_dar_sinir:
-		anlik_mesafe -= daralma_hizi
+	# 2. Deliğin büyüklüğü (aralık) tamamen rastgele
+	var rastgele_bosluk = randf_range(en_dar_delik, en_genis_delik)
+	yeni_kapi.aralik_ayarla(rastgele_bosluk)
 		
 	add_child(yeni_kapi)
+	
+	# 3. MUHTEŞEM DOKUNUŞ: Bir sonraki kapının ne zaman geleceğini de rastgele kur!
+	$Timer.wait_time = randf_range(en_hizli_kapi, en_yavas_kapi)
+
+# --- SKOR VE SİNYAL BÖLÜMÜ ---
 
 func puan_arttir():
 	skor += 1
 	$Arayuz/PuanTabelasi.text = str(skor)
-
-# --- TELEFONA KAYDETME VE BİTİRME MOTORU ---
 
 func oyunu_bitir():
 	son_skor = skor
@@ -50,7 +56,7 @@ func oyunu_bitir():
 		rekor = skor
 	
 	hafizayi_kaydet()
-	get_tree().call_deferred("reload_current_scene") # Kaydettikten sonra başa sar
+	get_tree().call_deferred("reload_current_scene")
 
 func hafizayi_kaydet():
 	var dosya = FileAccess.open(kayit_yolu, FileAccess.WRITE)
@@ -65,6 +71,5 @@ func hafizayi_yukle():
 		son_skor = dosya.get_32()
 		dosya.close()
 	
-	# Tabelalara yazdır
 	$Arayuz/RekorTabelasi.text = "Rekor: " + str(rekor)
 	$Arayuz/SonSkorTabelasi.text = "Son Skor: " + str(son_skor)
