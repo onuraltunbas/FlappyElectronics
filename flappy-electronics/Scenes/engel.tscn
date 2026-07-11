@@ -17,19 +17,15 @@ size = Vector2(20, 166)
 script = ExtResource("1_rjwd6")
 
 [node name="SpriteAlt" type="Sprite2D" parent="." unique_id=1845639850]
-position = Vector2(-1, 526)
 texture = ExtResource("2_uqg5d")
 
 [node name="CollisionAlt" type="CollisionShape2D" parent="." unique_id=1799026853]
-position = Vector2(-0.5, 660.625)
 shape = SubResource("RectangleShape2D_v7t8f")
 
 [node name="SpriteUst" type="Sprite2D" parent="." unique_id=1659642400]
-position = Vector2(0, -650)
 texture = ExtResource("3_6762y")
 
 [node name="CollisionUst" type="CollisionShape2D" parent="." unique_id=967493641]
-position = Vector2(-0.5, -646.25)
 shape = SubResource("RectangleShape2D_5cvp1")
 
 [node name="Lazer" type="Area2D" parent="." unique_id=1638535688]
