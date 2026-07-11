@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://b1ux6f0mmk5aq"]
 
-[ext_resource type="Texture2D" uid="uid://u1kapt8c1ueg" path="res://icon.svg" id="1_5xi0d"]
 [ext_resource type="Script" uid="uid://bj12ban4g2tdt" path="res://Scripts/engel.gd" id="1_rjwd6"]
+[ext_resource type="Texture2D" uid="uid://dk2sys1vom1j4" path="res://Assets/Sprites/prob.png" id="2_uqg5d"]
+[ext_resource type="Texture2D" uid="uid://c14v15t44yamj" path="res://Assets/Sprites/havya.png" id="3_6762y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7t8f"]
-size = Vector2(119, 1272.5)
+size = Vector2(13, 1275.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cvp1"]
-size = Vector2(126, 1021)
+size = Vector2(55, 1028.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqbyj"]
 size = Vector2(20, 166)
@@ -16,21 +17,19 @@ size = Vector2(20, 166)
 script = ExtResource("1_rjwd6")
 
 [node name="SpriteAlt" type="Sprite2D" parent="." unique_id=1845639850]
-position = Vector2(0, 650)
-scale = Vector2(1, 10)
-texture = ExtResource("1_5xi0d")
+position = Vector2(-1, 526)
+texture = ExtResource("2_uqg5d")
 
 [node name="CollisionAlt" type="CollisionShape2D" parent="." unique_id=1799026853]
-position = Vector2(0, 650)
+position = Vector2(-0.5, 660.625)
 shape = SubResource("RectangleShape2D_v7t8f")
 
 [node name="SpriteUst" type="Sprite2D" parent="." unique_id=1659642400]
 position = Vector2(0, -650)
-scale = Vector2(1, 8)
-texture = ExtResource("1_5xi0d")
+texture = ExtResource("3_6762y")
 
 [node name="CollisionUst" type="CollisionShape2D" parent="." unique_id=967493641]
-position = Vector2(0, -650)
+position = Vector2(-0.5, -646.25)
 shape = SubResource("RectangleShape2D_5cvp1")
 
 [node name="Lazer" type="Area2D" parent="." unique_id=1638535688]

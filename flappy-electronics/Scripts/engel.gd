@@ -27,8 +27,14 @@ func _lazer_kesildi(body):
 		get_tree().call_group("merkez", "puan_arttir")
 
 # Kapı aralığını ayarlayan mühendislik fonksiyonu
-func aralik_ayarla(yari_mesafe: float):
-	$SpriteUst.position.y = -yari_mesafe
-	$CollisionUst.position.y = -yari_mesafe
-	$SpriteAlt.position.y = yari_mesafe
-	$CollisionAlt.position.y = yari_mesafe
+func aralik_ayarla(tam_mesafe: float):
+	# 1. Gelen toplam boşluğu (örn: 600) gerçek yarı mesafeye (300) çeviriyoruz (Görünmezlik sorunu çözüldü!)
+	var yari_mesafe = tam_mesafe / 2.0
+	
+	# 2. Havya (Üst Engel) - Ucu tam sınırda olsun diye kendi boyunun yarısı kadar (521) yukarı itiyoruz.
+	$SpriteUst.position.y = -yari_mesafe - 521.0
+	$CollisionUst.position.y = -yari_mesafe - 521.0
+	
+	# 3. Prob (Alt Engel) - Ucu tam sınırda olsun diye kendi boyunun yarısı kadar (541) aşağı itiyoruz.
+	$SpriteAlt.position.y = yari_mesafe + 541.0
+	$CollisionAlt.position.y = yari_mesafe + 541.0
