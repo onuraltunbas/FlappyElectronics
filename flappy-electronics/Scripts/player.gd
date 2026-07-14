@@ -15,3 +15,7 @@ func _physics_process(delta):
 func _input(event):
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed) or (event is InputEventScreenTouch and event.pressed):
 		velocity.y = ziplama_gucu
+
+func _ready():
+	# Oyun başlarken Global'deki resmi alıp Player'ın resmine (Sprite2D) giydiriyoruz
+	$Sprite2D.texture = load(Global.secilen_karakter_resmi)

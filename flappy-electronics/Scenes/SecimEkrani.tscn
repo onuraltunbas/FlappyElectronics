@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://27gy7vkfkoc"]
+
+[ext_resource type="Texture2D" uid="uid://wv0o4lpup6rp" path="res://Assets/Sprites/Gemini_Generated_Image_x9abzjx9abzjx9ab.png" id="1_fkaao"]
+
+[node name="SecimEkrani" type="Control" unique_id=386790938]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Arkaplan" type="TextureRect" parent="." unique_id=415097264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fkaao")
+expand_mode = 1
+stretch_mode = 6
