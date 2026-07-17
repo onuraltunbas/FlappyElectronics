@@ -7,8 +7,7 @@ var secilen_karakter_resmi = "res://Assets/Sprites/resistor.png"
 # Yarın yeni bir kategori veya eleman eklemek istersen SADECE BURAYA yazman yetecek!
 var bilesen_katalogu = {
 	"DİRENÇLER": [
-		{
-			"isim": "Karbon Film Direnç", 
+		{ 
 			"resim": "res://Assets/Sprites/resistor.png", 
 			"kilitli": false # İleride puanla açtırmak istersek diye şimdiden ekledim
 		}
@@ -17,8 +16,7 @@ var bilesen_katalogu = {
 	
 	"ENTEGRELER": [
 		{
-			"isim": "555 Zamanlayıcı", 
-			"resim": "res://Assets/Sprites/555_timer.png", 
+			"resim": "res://Assets/Sprites/mp1584.png", # Yeni entegremizin tam yolu
 			"kilitli": false
 		}
 		# Buraya "Op-Amp", "Mikrodenetleyici" vs. ekleyeceğiz.
