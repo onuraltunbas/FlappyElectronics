@@ -1,72 +1,60 @@
 extends CharacterBody2D
+class_name Player # Bu çok önemli, engelin bizi tanımasını sağlıyor
 
-class_name Player
-
-# --- FİZİK AYARLARI ---
 @export var yercekimi: float = 1200.0
 @export var ziplama_gucu: float = -450.0
 
-# Oyunun başlayıp başlamadığını kontrol eden şalter
 var oyun_basladi: bool = false
-var oldu: bool = false # Oyunun bitip bitmediğini takip eder
+var oldu: bool = false 
 
 func _ready():
-	# --- GÖRSEL VE HACİM OTOMASYONU ---
+	# 1. Globalden özel resmi ve ona ait ÖZEL BOYUTU al
+	var resim_yolu = Global.secilen_karakter["resim"]
+	var hedef_yukseklik = Global.secilen_karakter["boyut"]
 	
-	# 1. Globalden seçilen resmi alıp Sprite'a giydir
-	if Global.secilen_karakter_resmi != "":
-		$Sprite2D.texture = load(Global.secilen_karakter_resmi)
+	$Sprite2D.texture = load(resim_yolu)
 	
-	# 2. Boyutu (Scale) ayarla (Dirençle aynı hacme getirme)
-	var hedef_yukseklik = 25.0
+	# 2. Her Karaktere Özel Dinamik Hacim
 	var resim_yuksekligi = $Sprite2D.texture.get_height()
-	var yeni_olcek = hedef_yukseklik / resim_yuksekligi
+	var yeni_olcek = float(hedef_yukseklik) / float(resim_yuksekligi)
 	$Sprite2D.scale = Vector2(yeni_olcek, yeni_olcek)
 	
-	# 3. COLLISION SHAPE'İ OTOMATİK AYARLA (Hitbox Koruması)
 	var shape = $CollisionShape2D.shape
 	if shape is RectangleShape2D:
-		var yeni_boyut = $Sprite2D.texture.get_size() * yeni_olcek
-		shape.size = yeni_boyut
+		shape.size = $Sprite2D.texture.get_size() * yeni_olcek
 
 func _physics_process(delta):
-	if oldu: return # Eğer öldüysek kodun geri kalanını çalıştırma
+	if oldu: return 
 	
-	# --- ZIPLAMA VE OYUNU BAŞLATMA ---
 	if Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if not oyun_basladi:
 			oyun_basladi = true
-		
 		velocity.y = ziplama_gucu
 	
-	# --- YERÇEKİMİ ---
 	if not oyun_basladi:
 		velocity.y = 0
 		return
 		
 	velocity.y += yercekimi * delta
-	
 	move_and_slide()
-	
-	# Görsel Şölen: Karakter zıplarken burnu havaya kalkar, düşerken yere eğilir
 	rotation = deg_to_rad(velocity.y * 0.05)
 
-# --- ÇARPIŞMA (GAME OVER) FONKSİYONU ---
-# Bu fonksiyonu, engelin (Engel.gd) içinden çağıracağız
 func carpisma_oldu():
 	if oldu: return
 	oldu = true
 	
-	# 1. Kıvılcım Efektini Çarpışma Yerinde Oluştur
+	# 1. Kıvılcım
 	var kivilcim_sahne = load("res://Scenes/kivilcim.tscn")
 	var patlama = kivilcim_sahne.instantiate()
 	get_parent().add_child(patlama)
 	patlama.global_position = self.global_position
 	
 	# 2. Zamanı Yavaşlat (Hit-Stop efekti)
-	Engine.time_scale = 0.2
-	await get_tree().create_timer(0.5).timeout
-	Engine.time_scale = 1.0 # Zamanı normale döndür
+	Engine.time_scale = 0.1 
 	
-	# 3. Game Over Sinyali (İleride Game Over menüsünü açacağız)
-	print("Game Over! Kıvılcım ve donma efekti bitti.")
+	# 3. Gerçek dünyada 0.5 saniye bekle (Donmadan etkilenmemesi için son parametre 'true')
+	await get_tree().create_timer(0.5, true, false, true).timeout
+	
+	# 4. Zamanı normale döndür ve "Oyun Bitti" emrini şimdi yolla!
+	Engine.time_scale = 1.0 
+	get_tree().call_group("merkez", "oyunu_bitir")

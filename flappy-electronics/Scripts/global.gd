@@ -1,26 +1,23 @@
 extends Node
 
-# Oyun başladığında varsayılan olarak seçili olan karakterin resmi
-var secilen_karakter_resmi = "res://Assets/Sprites/resistor.png"
+# Artık sadece resmi değil, o resme ait boyutu da bir paket (Dictionary) olarak tutuyoruz
+var secilen_karakter = {
+	"resim": "res://Assets/Sprites/resistor.png",
+	"boyut": 30.0 # Direncin varsayılan boyutu
+}
 
-# Kategoriler ve Bileşenler Veritabanı (Dictionary Mimarisi)
-# Yarın yeni bir kategori veya eleman eklemek istersen SADECE BURAYA yazman yetecek!
 var bilesen_katalogu = {
 	"DİRENÇLER": [
-		{ 
-			"resim": "res://Assets/Sprites/resistor.png", 
-			"kilitli": false # İleride puanla açtırmak istersek diye şimdiden ekledim
+		{
+			"resim": "res://Assets/Sprites/resistor.png",
+			"boyut": 30.0 # Direnç ince olduğu için 30 yeterli
 		}
-		# Buraya virgül koyup "Mavi Direnç", "Taş Direnç" vs. ekleyeceğiz.
 	],
 	
 	"ENTEGRELER": [
 		{
-			"resim": "res://Assets/Sprites/mp1584.png", # Yeni entegremizin tam yolu
-			"kilitli": false
+			"resim": "res://Assets/Sprites/mp1584.png",
+			"boyut": 70.0 # Entegre devasa, o yüzden 70 veya 80 yapabilirsin!
 		}
-		# Buraya "Op-Amp", "Mikrodenetleyici" vs. ekleyeceğiz.
 	]
-	
-	# Buraya "KONDANSATÖRLER", "TRANSİSTÖRLER" gibi sonsuz kategori eklenebilir.
 }
