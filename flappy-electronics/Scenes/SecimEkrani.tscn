@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://27gy7vkfkoc"]
 
+[ext_resource type="Script" uid="uid://kathb4cicsu3" path="res://Scenes/secim_ekrani.gd" id="1_8mb0r"]
 [ext_resource type="Texture2D" uid="uid://wv0o4lpup6rp" path="res://Assets/Sprites/Gemini_Generated_Image_x9abzjx9abzjx9ab.png" id="1_fkaao"]
+[ext_resource type="FontFile" uid="uid://e0pubsav38bl" path="res://Assets/Fonts/Orbitron-SemiBold.ttf" id="2_bk33y"]
 
 [node name="SecimEkrani" type="Control" unique_id=386790938]
 layout_mode = 3
@@ -9,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8mb0r")
 
 [node name="Arkaplan" type="TextureRect" parent="." unique_id=415097264]
 layout_mode = 1
@@ -20,3 +23,27 @@ grow_vertical = 2
 texture = ExtResource("1_fkaao")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=317008335]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 176.0
+offset_right = 661.0
+offset_bottom = 1076.0
+
+[node name="Liste" type="VBoxContainer" parent="ScrollContainer" unique_id=1999344741]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GeriButonu" type="Button" parent="." unique_id=1252312596]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 1089.0
+offset_right = 560.0
+offset_bottom = 1143.0
+theme_override_fonts/font = ExtResource("2_bk33y")
+theme_override_font_sizes/font_size = 36
+text = "ANA MENÜYE DÖN"
+
+[connection signal="pressed" from="GeriButonu" to="." method="_on_geri_butonu_pressed"]

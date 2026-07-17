@@ -71,4 +71,14 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_5cvp1")
 text = "OYUNA BASLA"
 
+[node name="BilesenSecButonu" type="Button" parent="." unique_id=1530465939]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 8.0
+offset_right = 713.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("2_m6uer")
+text = "KOMPONENT SEÇ"
+
 [connection signal="pressed" from="OynaButonu" to="." method="_on_oyna_butonu_pressed"]
+[connection signal="pressed" from="BilesenSecButonu" to="." method="_on_bilesen_sec_butonu_pressed"]

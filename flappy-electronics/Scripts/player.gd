@@ -17,5 +17,13 @@ func _input(event):
 		velocity.y = ziplama_gucu
 
 func _ready():
-	# Oyun başlarken Global'deki resmi alıp Player'ın resmine (Sprite2D) giydiriyoruz
+	# Globalden resmi alıp giydir
 	$Sprite2D.texture = load(Global.secilen_karakter_resmi)
+	
+	# OTOMATİK HACİM SABİTLEYİCİ (Hitbox Koruması)
+	# Hangi resim gelirse gelsin, yüksekliğini "25" piksel civarına (direncin boyutuna) sabitler
+	var resim_yuksekligi = $Sprite2D.texture.get_height()
+	var hedef_yukseklik = 25.0 # Senin orjinal direncinin oyundaki yaklaşık yüksekliği
+	
+	var yeni_olcek = hedef_yukseklik / resim_yuksekligi
+	$Sprite2D.scale = Vector2(yeni_olcek, yeni_olcek)
