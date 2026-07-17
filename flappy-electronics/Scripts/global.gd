@@ -10,7 +10,7 @@ var bilesen_katalogu = {
 	"DİRENÇLER": [
 		{
 			"resim": "res://Assets/Sprites/resistor.png",
-			"boyut": 30.0 # Direnç ince olduğu için 30 yeterli
+			"boyut": 80.0 # Direnç ince olduğu için 30 yeterli
 		}
 	],
 	
