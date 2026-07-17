@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 # --- FİZİK AYARLARI ---
 @export var yercekimi: float = 1200.0
 @export var ziplama_gucu: float = -450.0
