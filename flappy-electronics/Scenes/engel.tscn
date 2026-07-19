@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bj12ban4g2tdt" path="res://Scripts/engel.gd" id="1_rjwd6"]
 [ext_resource type="Texture2D" uid="uid://dk2sys1vom1j4" path="res://Assets/Sprites/prob.png" id="2_uqg5d"]
 [ext_resource type="Texture2D" uid="uid://c14v15t44yamj" path="res://Assets/Sprites/havya.png" id="3_6762y"]
+[ext_resource type="Texture2D" uid="uid://beuk8dt3a1yak" path="res://Assets/Sprites/elektrik.png" id="4_6762y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7t8f"]
 size = Vector2(13, 1008)
@@ -12,6 +13,9 @@ size = Vector2(55, 1035.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqbyj"]
 size = Vector2(20, 919)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtgqq"]
+size = Vector2(38.5, 65)
 
 [node name="Engel" type="Area2D" unique_id=1005573347]
 script = ExtResource("1_rjwd6")
@@ -35,3 +39,14 @@ shape = SubResource("RectangleShape2D_5cvp1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lazer" unique_id=1435647982]
 position = Vector2(0, 18.5)
 shape = SubResource("RectangleShape2D_iqbyj")
+
+[node name="BonusElektrik" type="Area2D" parent="." unique_id=189966164]
+
+[node name="Sprite2D" type="Sprite2D" parent="BonusElektrik" unique_id=1863973141]
+position = Vector2(-40.75, 73.5)
+scale = Vector2(0.348, 0.31944448)
+texture = ExtResource("4_6762y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BonusElektrik" unique_id=87427319]
+position = Vector2(-40.25, 73.5)
+shape = SubResource("RectangleShape2D_wtgqq")

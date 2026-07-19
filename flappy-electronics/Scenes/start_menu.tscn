@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://c8jxyp88253qa"]
 
-[ext_resource type="FontFile" uid="uid://bj5ra4pcqh44p" path="res://Assets/Fonts/VT323-Regular.ttf" id="1_jgtwh"]
 [ext_resource type="Script" uid="uid://crl2en1xrgsbp" path="res://Scenes/start_menu.gd" id="1_m6uer"]
 [ext_resource type="FontFile" uid="uid://e0pubsav38bl" path="res://Assets/Fonts/Orbitron-SemiBold.ttf" id="2_m6uer"]
 
@@ -32,20 +31,6 @@ texture = SubResource("CompressedTexture2D_8dijm")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="RekorTabelasi" type="Label" parent="." unique_id=2130242896]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 6.0
-offset_right = 234.0
-offset_bottom = 76.0
-theme_override_colors/font_color = Color(0.30980393, 0.8901961, 0.83137256, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_fonts/font = ExtResource("1_jgtwh")
-theme_override_font_sizes/font_size = 70
-text = "REKOR: 0"
-
 [node name="Baslik" type="Label" parent="." unique_id=380356235]
 layout_mode = 0
 offset_left = 73.0
@@ -62,10 +47,10 @@ ELECTRONICS"
 
 [node name="OynaButonu" type="Button" parent="." unique_id=1922402607]
 layout_mode = 0
-offset_left = 157.0
-offset_top = 1064.0
-offset_right = 574.0
-offset_bottom = 1182.0
+offset_left = 160.0
+offset_top = 1065.0
+offset_right = 577.0
+offset_bottom = 1183.0
 theme_override_fonts/font = ExtResource("2_m6uer")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_5cvp1")
@@ -74,11 +59,21 @@ text = "OYUNA BASLA"
 [node name="BilesenSecButonu" type="Button" parent="." unique_id=1530465939]
 layout_mode = 0
 offset_left = 479.0
-offset_top = 8.0
+offset_top = 5.0
 offset_right = 713.0
-offset_bottom = 60.0
+offset_bottom = 57.0
 theme_override_fonts/font = ExtResource("2_m6uer")
 text = "KOMPONENT SEÇ"
+
+[node name="ToplamSkorTabelasi" type="Label" parent="." unique_id=1973754846]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 140.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("2_m6uer")
+theme_override_font_sizes/font_size = 29
+text = "SKOR: 0"
 
 [connection signal="pressed" from="OynaButonu" to="." method="_on_oyna_butonu_pressed"]
 [connection signal="pressed" from="BilesenSecButonu" to="." method="_on_bilesen_sec_butonu_pressed"]

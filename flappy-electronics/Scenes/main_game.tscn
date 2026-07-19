@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d1dhpjaiwieiu" path="res://Scripts/main_game.gd" id="1_l756w"]
 [ext_resource type="PackedScene" uid="uid://ckoh1bqq1sd2l" path="res://Scenes/player.tscn" id="2_pu3va"]
+[ext_resource type="FontFile" uid="uid://e0pubsav38bl" path="res://Assets/Fonts/Orbitron-SemiBold.ttf" id="3_6j5ir"]
+[ext_resource type="FontFile" uid="uid://bj5ra4pcqh44p" path="res://Assets/Fonts/VT323-Regular.ttf" id="4_mgc0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7t8f"]
 size = Vector2(719.5, 6)
@@ -35,28 +37,117 @@ autostart = true
 [node name="Arayuz" type="CanvasLayer" parent="." unique_id=33594934]
 
 [node name="PuanTabelasi" type="Label" parent="Arayuz" unique_id=784799844]
-offset_left = 340.0
-offset_top = 6.0
-offset_right = 381.0
-offset_bottom = 105.0
-theme_override_font_sizes/font_size = 72
-text = "0"
+offset_left = 5.0
+offset_top = 43.0
+offset_right = 126.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 30
+text = "Skor: 0"
 horizontal_alignment = 1
 
-[node name="SonSkorTabelasi" type="Label" parent="Arayuz" unique_id=194540037]
-offset_left = 10.0
-offset_top = 53.0
-offset_right = 50.0
-offset_bottom = 98.0
-theme_override_font_sizes/font_size = 32
-text = "0"
+[node name="ToplamSkorTabelasi" type="Label" parent="Arayuz" unique_id=1132818896]
+offset_left = 5.0
+offset_right = 45.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 30
 
-[node name="RekorTabelasi" type="Label" parent="Arayuz" unique_id=1034936495]
-offset_left = 10.0
-offset_top = 13.0
-offset_right = 50.0
-offset_bottom = 58.0
-theme_override_font_sizes/font_size = 32
-text = "0"
+[node name="GameOverEkrani" type="ColorRect" parent="Arayuz" unique_id=1226917149]
+visible = false
+offset_right = 715.0
+offset_bottom = 1277.0
+color = Color(0.78039217, 0, 0, 0.43529412)
+
+[node name="YenidenBaslatButonu" type="Button" parent="Arayuz/GameOverEkrani" unique_id=1422536718]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 666.0
+offset_right = 517.0
+offset_bottom = 717.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 33
+text = "YENİDEN BAŞLAT"
+
+[node name="Label" type="Label" parent="Arayuz/GameOverEkrani" unique_id=19001699]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 529.0
+offset_right = 579.0
+offset_bottom = 654.0
+theme_override_fonts/font = ExtResource("4_mgc0q")
+theme_override_font_sizes/font_size = 124
+text = "ÖLDÜN ÇIK"
+
+[node name="Button" type="Button" parent="Arayuz/GameOverEkrani" unique_id=1259989265]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 729.0
+offset_right = 464.0
+offset_bottom = 768.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 22
+text = "ANA MENÜYE DÖN"
+
+[node name="DurdurmaButonu" type="Button" parent="Arayuz" unique_id=2138471050]
+offset_left = 606.0
+offset_top = 8.0
+offset_right = 718.0
+offset_bottom = 120.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 16
+text = "DURAKLAT"
+
+[node name="DurdurmaEkrani" type="ColorRect" parent="Arayuz" unique_id=1839727415]
+visible = false
+offset_right = 720.0
+offset_bottom = 1282.0
+color = Color(0.15930244, 0.33003208, 0.38478795, 0.44313726)
+
+[node name="Label" type="Label" parent="Arayuz/DurdurmaEkrani" unique_id=1862733898]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 114.0
+offset_right = 471.0
+offset_bottom = 249.0
+theme_override_fonts/font = ExtResource("4_mgc0q")
+theme_override_font_sizes/font_size = 134
+text = "MOLA"
+
+[node name="DevamEtButonu" type="Button" parent="Arayuz/DurdurmaEkrani" unique_id=1803317063]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 591.0
+offset_right = 458.0
+offset_bottom = 632.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 25
+text = "DEVAM ET"
+
+[node name="YenidenBaslatButonu" type="Button" parent="Arayuz/DurdurmaEkrani" unique_id=872513123]
+layout_mode = 0
+offset_left = 245.0
+offset_top = 726.0
+offset_right = 508.0
+offset_bottom = 767.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 25
+text = "YENİDEN BAŞLAT"
+
+[node name="AnaMenuButonu" type="Button" parent="Arayuz/DurdurmaEkrani" unique_id=277842074]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 469.0
+offset_right = 513.0
+offset_bottom = 510.0
+theme_override_fonts/font = ExtResource("3_6j5ir")
+theme_override_font_sizes/font_size = 25
+text = "ANA MENÜYE DÖN"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Arayuz/GameOverEkrani/YenidenBaslatButonu" to="." method="_on_yeniden_baslat_butonu_pressed"]
+[connection signal="pressed" from="Arayuz/GameOverEkrani/Button" to="." method="_on_gameover_ana_menu_pressed"]
+[connection signal="pressed" from="Arayuz/DurdurmaButonu" to="." method="_on_durdurma_butonu_pressed"]
+[connection signal="pressed" from="Arayuz/DurdurmaEkrani/DevamEtButonu" to="." method="_on_devam_et_butonu_pressed"]
+[connection signal="pressed" from="Arayuz/DurdurmaEkrani/YenidenBaslatButonu" to="." method="_on_durdurma_yeniden_baslat_pressed"]
+[connection signal="pressed" from="Arayuz/DurdurmaEkrani/AnaMenuButonu" to="." method="_on_durdurma_ana_menu_pressed"]

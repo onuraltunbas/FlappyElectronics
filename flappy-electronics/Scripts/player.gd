@@ -9,23 +9,25 @@ var oldu: bool = false
 
 func _ready():
 	Global.oyun_basladi = false
-	# 1. Globalden özel resmi, boyutu ve DARALTMA payını al
+	# 1. Globalden özel resmi, boyutu, DARALTMA payını ve en ölçeğini al
 	var resim_yolu = Global.secilen_karakter["resim"]
 	var hedef_yukseklik = Global.secilen_karakter["boyut"]
 	var daraltma = Global.secilen_karakter.get("hitbox_daraltma", Vector2(1.0, 1.0))
+	var en_olcegi = Global.secilen_karakter.get("en_olcegi", 1.0)
 	
 	$Sprite2D.texture = load(resim_yolu)
 	
-	# 2. Her Karaktere Özel Dinamik Hacim
+	# 2. Her Karaktere Özel Dinamik Hacim (Artık en ve boy bağımsız!)
 	var resim_yuksekligi = $Sprite2D.texture.get_height()
-	var yeni_olcek = float(hedef_yukseklik) / float(resim_yuksekligi)
-	$Sprite2D.scale = Vector2(yeni_olcek, yeni_olcek)
+	var yeni_olcek_y = float(hedef_yukseklik) / float(resim_yuksekligi)
+	var gercek_olcek = Vector2(yeni_olcek_y * en_olcegi, yeni_olcek_y)
+	$Sprite2D.scale = gercek_olcek
 	
 	# 3. Hitbox'ı Kırpılmış Haliyle Ayarla
 	var shape = $CollisionShape2D.shape
 	if shape is RectangleShape2D:
-		# Resmin boyutunu ölçekle çarp, sonra da daraltma oranımızla çarpıp hitbox'ı cillop gibi yap!
-		shape.size = ($Sprite2D.texture.get_size() * yeni_olcek) * daraltma
+		# Resmin boyutunu asimetrik ölçekle çarp, sonra da daraltma oranımızla çarpıp hitbox'ı cillop gibi yap!
+		shape.size = ($Sprite2D.texture.get_size() * gercek_olcek) * daraltma
 
 func _physics_process(delta):
 	if oldu: return 

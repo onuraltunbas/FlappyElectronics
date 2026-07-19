@@ -17,13 +17,16 @@ var engel_kalibi = preload("res://Scenes/engel.tscn")
 @export var en_dar_delik: float = 600.0   # Bazen iğne deliği kadar dar
 
 var skor: int = 0  
+var bu_tur_kazanilan_para: int = 0
 
 # --- HAFIZA SİSTEMİ ---
 var kayit_yolu = "user://oyun_hafizasi.save" 
-var rekor: int = 0
-var son_skor: int = 0
 
 func _ready():
+	# Eğer pause ekranı varsa, oyun durduğunda bile çalışabilmesi için ayarını yap
+	if $Arayuz.has_node("DurdurmaEkrani"):
+		$Arayuz/DurdurmaEkrani.process_mode = Node.PROCESS_MODE_ALWAYS
+		
 	hafizayi_yukle()
 	# Oyun başlarken ilk kapının geliş süresini rastgele kur
 	$Timer.wait_time = randf_range(en_hizli_kapi, en_yavas_kapi)
@@ -50,28 +53,87 @@ func _on_timer_timeout():
 
 func puan_arttir():
 	skor += 1
-	$Arayuz/PuanTabelasi.text = str(skor)
+	$Arayuz/PuanTabelasi.text = "Skor: " + str(skor)
+	
+	# Toplam skoru (parayı) da anında artır
+	bu_tur_kazanilan_para += 1
+	Global.toplam_skor += 1
+	if $Arayuz.has_node("ToplamSkorTabelasi"):
+		$Arayuz/ToplamSkorTabelasi.text = "Toplam Skor: " + str(Global.toplam_skor)
 
 func oyunu_bitir():
-	son_skor = skor
-	if skor > rekor:
-		rekor = skor
-	
+	Global.oyun_basladi = false # EKLENDİ: Oyun bitince her şey (engeller, yeni engellerin gelişi) dursun!
 	hafizayi_kaydet()
+	
+	# Sahnede GameOverEkrani varsa göster, yoksa mecburen yeniden başlat
+	if $Arayuz.has_node("GameOverEkrani"):
+		$Arayuz/GameOverEkrani.show()
+	else:
+		get_tree().call_deferred("reload_current_scene")
+
+func bonus_para_ekle(miktar: int):
+	bu_tur_kazanilan_para += miktar
+	Global.toplam_skor += miktar
+	if $Arayuz.has_node("ToplamSkorTabelasi"):
+		$Arayuz/ToplamSkorTabelasi.text = "Toplam Skor: " + str(Global.toplam_skor)
+
+# --- BUTON SİNYALLERİ VE OYUNU DURDURMA ---
+
+# Godot Editör'de butondan buraya sinyal bağlayacağız (Game Over Ekranı)
+func _on_yeniden_baslat_butonu_pressed():
 	get_tree().call_deferred("reload_current_scene")
+
+func _on_gameover_ana_menu_pressed():
+	# Game Over olunduğunda kazanılan para oyuncunun hakkıdır, silinmez!
+	get_tree().change_scene_to_file("res://Scenes/start_menu.tscn")
+
+# --- DURDURMA (PAUSE) MENÜSÜ SİNYALLERİ ---
+
+func _on_durdurma_butonu_pressed():
+	if Global.oyun_basladi:
+		get_tree().paused = true
+		if $Arayuz.has_node("DurdurmaEkrani"):
+			$Arayuz/DurdurmaEkrani.show()
+
+func _on_devam_et_butonu_pressed():
+	get_tree().paused = false
+	if $Arayuz.has_node("DurdurmaEkrani"):
+		$Arayuz/DurdurmaEkrani.hide()
+
+func kazanci_iptal_et_ve_cikis(hedef_sahne: String):
+	# Oyundan kaçıldığı için bu tur kazanılan parayı (ve skoru) geri siliyoruz
+	Global.toplam_skor -= bu_tur_kazanilan_para
+	bu_tur_kazanilan_para = 0
+	hafizayi_kaydet()
+	get_tree().paused = false
+	get_tree().change_scene_to_file(hedef_sahne)
+
+func _on_durdurma_yeniden_baslat_pressed():
+	kazanci_iptal_et_ve_cikis("res://Scenes/main_game.tscn")
+
+func _on_durdurma_ana_menu_pressed():
+	kazanci_iptal_et_ve_cikis("res://Scenes/start_menu.tscn")
+
+# --- KAYIT SİSTEMİ ---
 
 func hafizayi_kaydet():
 	var dosya = FileAccess.open(kayit_yolu, FileAccess.WRITE)
-	dosya.store_32(rekor)
-	dosya.store_32(son_skor)
+	dosya.store_var(Global.toplam_skor)
+	dosya.store_var(Global.satin_alinanlar)
 	dosya.close()
 
 func hafizayi_yukle():
 	if FileAccess.file_exists(kayit_yolu):
 		var dosya = FileAccess.open(kayit_yolu, FileAccess.READ)
-		rekor = dosya.get_32()
-		son_skor = dosya.get_32()
+		var okunan_skor = dosya.get_var()
+		var okunan_liste = dosya.get_var()
+		if okunan_skor != null: Global.toplam_skor = okunan_skor
+		if okunan_liste != null: Global.satin_alinanlar = okunan_liste
 		dosya.close()
 	
-	$Arayuz/RekorTabelasi.text = "Rekor: " + str(rekor)
-	$Arayuz/SonSkorTabelasi.text = "Son Skor: " + str(son_skor)
+	if $Arayuz.has_node("ToplamSkorTabelasi"):
+		$Arayuz/ToplamSkorTabelasi.text = "Toplam Skor: " + str(Global.toplam_skor)
+
+
+func _on_button_pressed() -> void:
+	pass # Replace with function body.
