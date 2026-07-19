@@ -7,7 +7,13 @@ func _ready():
 	$Lazer.body_entered.connect(_lazer_kesildi)
 
 func _process(delta):
+	# Eğer oyun başlamadıysa fonksiyonu burada kes, engeli hareket ettirme!
+	if not Global.oyun_basladi:
+		return 
+		
+	# Engeli her saniye sola doğru kaydır
 	position.x -= hiz * delta
+	
 	if position.x < -200:
 		queue_free()
 

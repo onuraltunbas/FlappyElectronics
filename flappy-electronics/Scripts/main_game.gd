@@ -29,6 +29,8 @@ func _ready():
 	$Timer.wait_time = randf_range(en_hizli_kapi, en_yavas_kapi)
 
 func _on_timer_timeout():
+	if not Global.oyun_basladi:
+		return # Oyun başlamadıysa yeni engel yaratma, bekle!
 	var yeni_kapi = engel_kalibi.instantiate()
 	
 	# 1. Deliğin ekrandaki yüksekliği tamamen rastgele (Aşırı oynak)

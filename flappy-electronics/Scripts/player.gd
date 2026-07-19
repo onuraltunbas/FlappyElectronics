@@ -4,13 +4,15 @@ class_name Player # Bu çok önemli, engelin bizi tanımasını sağlıyor
 @export var yercekimi: float = 1200.0
 @export var ziplama_gucu: float = -450.0
 
-var oyun_basladi: bool = false
+
 var oldu: bool = false 
 
 func _ready():
-	# 1. Globalden özel resmi ve ona ait ÖZEL BOYUTU al
+	Global.oyun_basladi = false
+	# 1. Globalden özel resmi, boyutu ve DARALTMA payını al
 	var resim_yolu = Global.secilen_karakter["resim"]
 	var hedef_yukseklik = Global.secilen_karakter["boyut"]
+	var daraltma = Global.secilen_karakter.get("hitbox_daraltma", Vector2(1.0, 1.0))
 	
 	$Sprite2D.texture = load(resim_yolu)
 	
@@ -19,19 +21,23 @@ func _ready():
 	var yeni_olcek = float(hedef_yukseklik) / float(resim_yuksekligi)
 	$Sprite2D.scale = Vector2(yeni_olcek, yeni_olcek)
 	
+	# 3. Hitbox'ı Kırpılmış Haliyle Ayarla
 	var shape = $CollisionShape2D.shape
 	if shape is RectangleShape2D:
-		shape.size = $Sprite2D.texture.get_size() * yeni_olcek
+		# Resmin boyutunu ölçekle çarp, sonra da daraltma oranımızla çarpıp hitbox'ı cillop gibi yap!
+		shape.size = ($Sprite2D.texture.get_size() * yeni_olcek) * daraltma
 
 func _physics_process(delta):
 	if oldu: return 
 	
 	if Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if not oyun_basladi:
-			oyun_basladi = true
+		# Tıkladığımızda GLOBAL şalteri kaldırıyoruz
+		if not Global.oyun_basladi:
+			Global.oyun_basladi = true
 		velocity.y = ziplama_gucu
 	
-	if not oyun_basladi:
+	# GLOBAL şaltere bakıyoruz
+	if not Global.oyun_basladi:
 		velocity.y = 0
 		return
 		
